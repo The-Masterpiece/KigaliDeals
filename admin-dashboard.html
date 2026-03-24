@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard – KigaliDeals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--green:#1A6B3C;--green-light:#2D9E5F;--green-pale:#E8F5EE;--yellow:#F5C518;--orange:#E8541A;--cream:#FAF7F2;--ink:#1A1A1A;--ink-2:#3D3D3D;--muted:#888;--border:#E5E0D8;--white:#FFFFFF;--radius:16px;--radius-sm:10px;--red:#D63B3B;--sidebar-w:220px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#F4F3EE;color:var(--ink);display:flex;min-height:100vh;overflow-x:hidden}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);background:var(--ink);min-height:100vh;flex-shrink:0;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:50}
+.sb-logo{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px}
+.sb-logo-mark{width:32px;height:32px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:var(--yellow)}
+.sb-logo-text{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white)}
+.sb-logo-text span{color:var(--green-light)}
+.sb-section-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;padding:20px 18px 8px}
+.sb-item{display:flex;align-items:center;gap:12px;padding:11px 18px;font-size:13px;font-weight:500;color:rgba(255,255,255,.55);cursor:pointer;transition:all .15s;border-left:3px solid transparent;text-decoration:none}
+.sb-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.9)}
+.sb-item.active{background:rgba(45,158,95,.15);color:var(--white);border-left-color:var(--green-light)}
+.sb-item-icon{font-size:15px;width:18px;text-align:center}
+.sb-badge{margin-left:auto;background:var(--orange);color:var(--white);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
+.sb-footer{margin-top:auto;padding:16px 18px;border-top:1px solid rgba(255,255,255,.08)}
+.sb-admin-row{display:flex;align-items:center;gap:10px}
+.sb-avatar{width:32px;height:32px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--white)}
+.sb-admin-name{font-size:13px;color:rgba(255,255,255,.7);font-weight:500}
+.sb-admin-role{font-size:11px;color:rgba(255,255,255,.35)}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh}
+
+/* TOP BAR */
+.topbar{background:var(--white);border-bottom:1.5px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40}
+.topbar-title{font-size:16px;font-weight:600;color:var(--ink)}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-date{font-size:13px;color:var(--muted)}
+.notif-btn{width:36px;height:36px;border-radius:8px;background:var(--cream);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;position:relative}
+.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--orange);border-radius:50%;border:2px solid var(--white)}
+
+/* PAGE BODY */
+.page-body{padding:28px;flex:1}
+
+/* METRIC CARDS */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.metric-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px}
+.metric-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.metric-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--ink);line-height:1;margin-bottom:6px}
+.metric-change{font-size:13px;display:flex;align-items:center;gap:4px}
+.change-up{color:var(--green-light)}
+.change-down{color:var(--red)}
+.metric-icon{float:right;font-size:24px;margin-top:-36px}
+
+/* CHART AREA */
+.chart-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px}
+.card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px}
+.card-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.card-sub{font-size:12px;color:var(--muted);margin-bottom:20px}
+
+/* BAR CHART */
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:160px;margin-bottom:8px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:100%;border-radius:6px 6px 0 0;transition:height .6s ease;cursor:pointer;min-height:4px}
+.bar:hover{filter:brightness(1.15)}
+.bar-label{font-size:10px;color:var(--muted);white-space:nowrap}
+.bar-val{font-size:11px;font-weight:600;color:var(--ink-2)}
+
+/* DONUT CHART */
+.donut-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+svg.donut{transform:rotate(-90deg)}
+.donut-legend{display:flex;flex-direction:column;gap:8px}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:13px}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.legend-label{color:var(--ink-2);flex:1}
+.legend-pct{font-weight:600;color:var(--ink)}
+
+/* TABLES */
+.table-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:20px}
+.table-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1.5px solid var(--border)}
+.table-title{font-size:15px;font-weight:600}
+.btn-sm{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--ink-2);font-family:'DM Sans',sans-serif;transition:all .15s}
+.btn-sm:hover{border-color:var(--green);color:var(--green)}
+.btn-sm-green{background:var(--green);color:var(--white);border-color:var(--green)}
+.btn-sm-green:hover{background:var(--green-light);color:var(--white)}
+
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:10px 20px;background:var(--cream);border-bottom:1px solid var(--border)}
+td{padding:13px 20px;font-size:14px;color:var(--ink-2);border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafaf8}
+
+.status-badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.03em}
+.badge-active{background:#E8F5EE;color:var(--green)}
+.badge-pending{background:#FFF9E6;color:var(--yellow-deep,#b38c00)}
+.badge-paused{background:#F1EFE8;color:var(--muted)}
+.badge-review{background:#FFF0EA;color:var(--orange)}
+
+.progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;width:80px}
+.progress-fill{height:100%;background:var(--green);border-radius:3px}
+
+/* ACTIVITY FEED */
+.activity-feed{display:flex;flex-direction:column;gap:0}
+.activity-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.activity-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.act-green{background:var(--green-pale)}
+.act-yellow{background:#FFF9E6}
+.act-orange{background:#FFF0EA}
+.activity-text{font-size:13px;color:var(--ink-2);line-height:1.5;flex:1}
+.activity-time{font-size:11px;color:var(--muted);white-space:nowrap;margin-top:2px}
+
+/* PENDING APPROVALS */
+.approval-card{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--border)}
+.approval-card:last-child{border-bottom:none}
+.approval-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.approval-info{flex:1}
+.approval-name{font-size:14px;font-weight:600;margin-bottom:2px}
+.approval-meta{font-size:12px;color:var(--muted)}
+.approval-actions{display:flex;gap:8px}
+.btn-approve{padding:6px 14px;border-radius:8px;background:var(--green);color:var(--white);border:none;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.btn-approve:hover{background:var(--green-light)}
+.btn-reject{padding:6px 14px;border-radius:8px;background:transparent;color:var(--red);border:1.5px solid var(--red);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.btn-reject:hover{background:#FCEBEB}
+
+/* TOP-BAR TABS */
+.page-tabs{display:flex;gap:4px;background:var(--cream);border-radius:10px;padding:4px;margin-bottom:24px;width:fit-content}
+.page-tab{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s}
+.page-tab.active{background:var(--white);color:var(--ink);font-weight:600}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+@media(max-width:1100px){.metrics-grid{grid-template-columns:repeat(2,1fr)}.chart-row{grid-template-columns:1fr}}
+@media(max-width:768px){.sidebar{display:none}.main{margin-left:0}.metrics-grid{grid-template-columns:1fr 1fr}.two-col,.three-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-mark">K</div>
+    <div class="sb-logo-text">Kigali<span>Deals</span> <span style="font-size:10px;background:rgba(255,255,255,.1);padding:1px 6px;border-radius:4px;color:rgba(255,255,255,.5);font-family:'DM Sans',sans-serif;font-weight:400">Admin</span></div>
+  </div>
+
+  <div class="sb-section-label">Overview</div>
+  <a class="sb-item active" href="#" onclick="setPage('dashboard',this)"><span class="sb-item-icon">📊</span> Dashboard</a>
+  <a class="sb-item" href="#" onclick="setPage('deals',this)"><span class="sb-item-icon">🎟️</span> All Deals <span class="sb-badge">3</span></a>
+  <a class="sb-item" href="#" onclick="setPage('businesses',this)"><span class="sb-item-icon">🏪</span> Businesses</a>
+  <a class="sb-item" href="#" onclick="setPage('users',this)"><span class="sb-item-icon">👤</span> Users</a>
+
+  <div class="sb-section-label">Finance</div>
+  <a class="sb-item" href="#" onclick="setPage('revenue',this)"><span class="sb-item-icon">💰</span> Revenue</a>
+  <a class="sb-item" href="#" onclick="setPage('payouts',this)"><span class="sb-item-icon">📤</span> Payouts</a>
+
+  <div class="sb-section-label">Platform</div>
+  <a class="sb-item" href="#" onclick="setPage('dashboard',this)"><span class="sb-item-icon">⚙️</span> Settings</a>
+  <a class="sb-item" href="kigali-deals-homepage.html"><span class="sb-item-icon">🌐</span> View Site</a>
+
+  <div class="sb-footer">
+    <div class="sb-admin-row">
+      <div class="sb-avatar">JM</div>
+      <div><div class="sb-admin-name">Jean-Marie K.</div><div class="sb-admin-role">Super Admin</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title" id="pageTitle">Dashboard Overview</span>
+    <div class="topbar-right">
+      <span class="topbar-date">Monday, 23 March 2026</span>
+      <div class="notif-btn">🔔<div class="notif-dot"></div></div>
+      <button class="btn-sm btn-sm-green" onclick="setPage('deals',document.querySelector('.sb-item:nth-child(5)'))">+ Add Deal</button>
+    </div>
+  </div>
+
+  <div class="page-body">
+
+    <!-- DASHBOARD PAGE -->
+    <div id="page-dashboard">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Total revenue (MTD)</div>
+          <div class="metric-icon">💰</div>
+          <div class="metric-val">4.2M</div>
+          <div class="metric-change"><span class="change-up">↑ 18%</span> <span style="color:var(--muted)">vs last month</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Vouchers sold (MTD)</div>
+          <div class="metric-icon">🎟️</div>
+          <div class="metric-val">847</div>
+          <div class="metric-change"><span class="change-up">↑ 24%</span> <span style="color:var(--muted)">vs last month</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Active businesses</div>
+          <div class="metric-icon">🏪</div>
+          <div class="metric-val">124</div>
+          <div class="metric-change"><span class="change-up">↑ 8 new</span> <span style="color:var(--muted)">this month</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Registered users</div>
+          <div class="metric-icon">👤</div>
+          <div class="metric-val">8,241</div>
+          <div class="metric-change"><span class="change-up">↑ 312</span> <span style="color:var(--muted)">this week</span></div>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <!-- BAR CHART: Daily revenue -->
+        <div class="card">
+          <div class="card-title">Daily voucher sales — March 2026</div>
+          <div class="card-sub">Revenue in RWF thousands</div>
+          <div class="bar-chart" id="barChart"></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);padding:0 4px">
+            <span>Mar 1</span><span>Mar 8</span><span>Mar 15</span><span>Mar 22</span>
+          </div>
+        </div>
+
+        <!-- DONUT: Categories -->
+        <div class="card">
+          <div class="card-title">Sales by category</div>
+          <div class="card-sub">This month</div>
+          <div class="donut-wrap">
+            <svg class="donut" width="120" height="120" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="44" fill="none" stroke="#E5E0D8" stroke-width="18"/>
+              <circle cx="60" cy="60" r="44" fill="none" stroke="#1A6B3C" stroke-width="18" stroke-dasharray="124 152" stroke-dashoffset="0"/>
+              <circle cx="60" cy="60" r="44" fill="none" stroke="#F5C518" stroke-width="18" stroke-dasharray="58 218" stroke-dashoffset="-124"/>
+              <circle cx="60" cy="60" r="44" fill="none" stroke="#E8541A" stroke-width="18" stroke-dasharray="34 242" stroke-dashoffset="-182"/>
+              <circle cx="60" cy="60" r="44" fill="none" stroke="#378ADD" stroke-width="18" stroke-dasharray="30 246" stroke-dashoffset="-216"/>
+              <circle cx="60" cy="60" r="44" fill="none" stroke="#B4B2A9" stroke-width="18" stroke-dasharray="30 246" stroke-dashoffset="-246"/>
+            </svg>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#1A6B3C"></div><span class="legend-label">Restaurants</span><span class="legend-pct">45%</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:#F5C518"></div><span class="legend-label">Beauty & Spa</span><span class="legend-pct">21%</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:#E8541A"></div><span class="legend-label">Hotels</span><span class="legend-pct">12%</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div><span class="legend-label">Fitness</span><span class="legend-pct">11%</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:#B4B2A9"></div><span class="legend-label">Other</span><span class="legend-pct">11%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <!-- PENDING APPROVALS -->
+        <div class="table-card">
+          <div class="table-header">
+            <span class="table-title">Pending deal approvals</span>
+            <span class="sb-badge" style="background:var(--orange);color:#fff;font-size:12px;padding:3px 10px;border-radius:20px">3 waiting</span>
+          </div>
+          <div class="approval-card">
+            <div class="approval-icon" style="background:#E8F5EE">🍽️</div>
+            <div class="approval-info">
+              <div class="approval-name">Weekend Brunch Buffet for 2</div>
+              <div class="approval-meta">Cactus Restaurant · Kiyovu · 40% OFF · 20,000 RWF</div>
+            </div>
+            <div class="approval-actions">
+              <button class="btn-approve" onclick="approveItem(this)">✓ Approve</button>
+              <button class="btn-reject">✗</button>
+            </div>
+          </div>
+          <div class="approval-card">
+            <div class="approval-icon" style="background:#FFF9E6">💇</div>
+            <div class="approval-info">
+              <div class="approval-name">Full Hair Treatment Package</div>
+              <div class="approval-meta">Glam Studio · Remera · 35% OFF · 12,000 RWF</div>
+            </div>
+            <div class="approval-actions">
+              <button class="btn-approve" onclick="approveItem(this)">✓ Approve</button>
+              <button class="btn-reject">✗</button>
+            </div>
+          </div>
+          <div class="approval-card">
+            <div class="approval-icon" style="background:#FFF0EA">🏊</div>
+            <div class="approval-info">
+              <div class="approval-name">Pool Day Pass + Lunch</div>
+              <div class="approval-meta">Serena Hotel · City Centre · 50% OFF · 18,000 RWF</div>
+            </div>
+            <div class="approval-actions">
+              <button class="btn-approve" onclick="approveItem(this)">✓ Approve</button>
+              <button class="btn-reject">✗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE ACTIVITY -->
+        <div class="card">
+          <div class="card-title">Live activity feed</div>
+          <div class="card-sub">Real-time platform events</div>
+          <div class="activity-feed" id="activityFeed">
+            <div class="activity-item"><div class="activity-icon act-green">🎟️</div><div class="activity-text">Amina N. purchased <strong>Romantic Dinner for Two</strong> at Heaven Restaurant<div class="activity-time">Just now</div></div></div>
+            <div class="activity-item"><div class="activity-icon act-yellow">🏪</div><div class="activity-text">New business signup: <strong>Chez Lando Restaurant</strong><div class="activity-time">3 min ago</div></div></div>
+            <div class="activity-item"><div class="activity-icon act-green">🎟️</div><div class="activity-text">Patrick R. redeemed voucher at <strong>Zen Wellness Spa</strong><div class="activity-time">7 min ago</div></div></div>
+            <div class="activity-item"><div class="activity-icon act-orange">⭐</div><div class="activity-text">New 5-star review for <strong>FitLife Gym</strong> deal<div class="activity-time">14 min ago</div></div></div>
+            <div class="activity-item"><div class="activity-icon act-green">🎟️</div><div class="activity-text">Claire M. purchased <strong>Pool Day Pass</strong> at Serena Hotel<div class="activity-time">21 min ago</div></div></div>
+            <div class="activity-item"><div class="activity-icon act-yellow">👤</div><div class="activity-text">312 new user registrations today<div class="activity-time">Updated hourly</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEALS PAGE -->
+    <div id="page-deals" style="display:none">
+      <div class="page-tabs">
+        <div class="page-tab active">All Deals (340)</div>
+        <div class="page-tab">Active (298)</div>
+        <div class="page-tab">Pending (3)</div>
+        <div class="page-tab">Paused (39)</div>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-title">All deals</span>
+          <div style="display:flex;gap:8px">
+            <input style="padding:7px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;width:180px" placeholder="Search deals…">
+            <button class="btn-sm btn-sm-green">+ New Deal</button>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th>Deal</th><th>Business</th><th>Category</th><th>Price</th><th>Sold</th><th>Progress</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Romantic Dinner for Two</strong></td><td>Heaven Restaurant</td><td>Restaurant</td><td>15,000 RWF</td><td>72 / 100</td><td><div class="progress-bar"><div class="progress-fill" style="width:72%"></div></div></td><td><span class="status-badge badge-active">Active</span></td><td><button class="btn-sm">Edit</button></td></tr>
+            <tr><td><strong>90-min Massage + Facial</strong></td><td>Zen Wellness Spa</td><td>Beauty</td><td>15,000 RWF</td><td>45 / 100</td><td><div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div></td><td><span class="status-badge badge-active">Active</span></td><td><button class="btn-sm">Edit</button></td></tr>
+            <tr><td><strong>Weekend Stay + Breakfast</strong></td><td>The Retreat Kigali</td><td>Hotel</td><td>52,000 RWF</td><td>30 / 80</td><td><div class="progress-bar"><div class="progress-fill" style="width:38%"></div></div></td><td><span class="status-badge badge-active">Active</span></td><td><button class="btn-sm">Edit</button></td></tr>
+            <tr><td><strong>1-Month Gym + PT</strong></td><td>FitLife Gym</td><td>Fitness</td><td>20,000 RWF</td><td>88 / 100</td><td><div class="progress-bar"><div class="progress-fill" style="width:88%"></div></div></td><td><span class="status-badge badge-active">Active</span></td><td><button class="btn-sm">Edit</button></td></tr>
+            <tr><td><strong>Weekend Brunch Buffet</strong></td><td>Cactus Restaurant</td><td>Restaurant</td><td>20,000 RWF</td><td>0 / 50</td><td><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div></td><td><span class="status-badge badge-review">In review</span></td><td><button class="btn-sm">Review</button></td></tr>
+            <tr><td><strong>Kigali City Tour</strong></td><td>Rwanda Tours</td><td>Activities</td><td>35,000 RWF</td><td>20 / 60</td><td><div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div></td><td><span class="status-badge badge-active">Active</span></td><td><button class="btn-sm">Edit</button></td></tr>
+            <tr><td><strong>Kigali Fashion Voucher</strong></td><td>Kigali Heights Mall</td><td>Shopping</td><td>50,000 RWF</td><td>55 / 80</td><td><div class="progress-bar"><div class="progress-fill" style="width:69%"></div></div></td><td><span class="status-badge badge-paused">Paused</span></td><td><button class="btn-sm">Edit</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BUSINESSES PAGE -->
+    <div id="page-businesses" style="display:none">
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-title">Registered businesses</span>
+          <div style="display:flex;gap:8px">
+            <input style="padding:7px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;width:200px" placeholder="Search businesses…">
+            <button class="btn-sm">Export CSV</button>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th>Business</th><th>Category</th><th>Location</th><th>Plan</th><th>Deals</th><th>Revenue generated</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Heaven Restaurant</strong></td><td>Restaurant</td><td>Nyamirambo</td><td><span class="status-badge badge-active">Pro</span></td><td>3 active</td><td style="font-weight:600;color:var(--green)">1,400,000 RWF</td><td><span class="status-badge badge-active">Active</span></td></tr>
+            <tr><td><strong>Zen Wellness Spa</strong></td><td>Beauty</td><td>Kimironko</td><td><span class="status-badge badge-active">Pro</span></td><td>2 active</td><td style="font-weight:600;color:var(--green)">840,000 RWF</td><td><span class="status-badge badge-active">Active</span></td></tr>
+            <tr><td><strong>FitLife Gym</strong></td><td>Fitness</td><td>Remera</td><td><span class="status-badge" style="background:#EEF2FF;color:#185FA5">Premium</span></td><td>1 active</td><td style="font-weight:600;color:var(--green)">1,760,000 RWF</td><td><span class="status-badge badge-active">Active</span></td></tr>
+            <tr><td><strong>The Retreat Kigali</strong></td><td>Hotel</td><td>Kacyiru</td><td><span class="status-badge badge-active">Pro</span></td><td>1 active</td><td style="font-weight:600;color:var(--green)">624,000 RWF</td><td><span class="status-badge badge-active">Active</span></td></tr>
+            <tr><td><strong>Cactus Restaurant</strong></td><td>Restaurant</td><td>Kiyovu</td><td><span class="status-badge badge-paused">Free</span></td><td>1 pending</td><td style="font-weight:600;color:var(--muted)">0 RWF</td><td><span class="status-badge badge-review">Review</span></td></tr>
+            <tr><td><strong>Question Coffee</strong></td><td>Cafe</td><td>Kiyovu</td><td><span class="status-badge badge-paused">Free</span></td><td>2 active</td><td style="font-weight:600;color:var(--green)">175,000 RWF</td><td><span class="status-badge badge-active">Active</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- USERS PAGE -->
+    <div id="page-users" style="display:none">
+      <div class="metrics-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="metric-card"><div class="metric-label">Total users</div><div class="metric-val">8,241</div><div class="metric-change"><span class="change-up">↑ 312 this week</span></div></div>
+        <div class="metric-card"><div class="metric-label">Avg purchases/user</div><div class="metric-val">3.4</div><div class="metric-change"><span class="change-up">↑ 0.3 vs last month</span></div></div>
+        <div class="metric-card"><div class="metric-label">WhatsApp subscribers</div><div class="metric-val">6,100</div><div class="metric-change"><span class="change-up">74% of users</span></div></div>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><span class="table-title">Recent users</span><button class="btn-sm">Export</button></div>
+        <table>
+          <thead><tr><th>Name</th><th>Joined</th><th>Vouchers bought</th><th>Total spent</th><th>Last active</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Amina Nkurunziza</strong></td><td>Jan 12, 2026</td><td>7</td><td style="color:var(--green);font-weight:600">80,500 RWF</td><td>Today</td></tr>
+            <tr><td><strong>Patrick Rugamba</strong></td><td>Jan 18, 2026</td><td>5</td><td style="color:var(--green);font-weight:600">62,000 RWF</td><td>Yesterday</td></tr>
+            <tr><td><strong>Claire Mukamana</strong></td><td>Feb 3, 2026</td><td>3</td><td style="color:var(--green);font-weight:600">38,500 RWF</td><td>2 days ago</td></tr>
+            <tr><td><strong>Eric Habimana</strong></td><td>Feb 20, 2026</td><td>2</td><td style="color:var(--green);font-weight:600">27,000 RWF</td><td>Today</td></tr>
+            <tr><td><strong>Diane Uwase</strong></td><td>Mar 5, 2026</td><td>1</td><td style="color:var(--green);font-weight:600">15,000 RWF</td><td>3 hours ago</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- REVENUE PAGE -->
+    <div id="page-revenue" style="display:none">
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="metric-label">Gross revenue (MTD)</div><div class="metric-val">28.1M</div><div class="metric-change"><span class="change-up">↑ 18% vs last month</span></div></div>
+        <div class="metric-card"><div class="metric-label">KigaliDeals commission</div><div class="metric-val">4.2M</div><div class="metric-change"><span style="color:var(--muted)">15% avg rate</span></div></div>
+        <div class="metric-card"><div class="metric-label">Paid out to businesses</div><div class="metric-val">23.9M</div><div class="metric-change"><span class="change-up">↑ On schedule</span></div></div>
+        <div class="metric-card"><div class="metric-label">Pending payouts</div><div class="metric-val">3.4M</div><div class="metric-change"><span style="color:var(--muted)">Due Monday</span></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Revenue breakdown — March 2026</div>
+        <div class="card-sub">Commission income by category</div>
+        <table style="margin-top:8px">
+          <thead><tr><th>Category</th><th>Vouchers sold</th><th>Gross value</th><th>Commission earned</th></tr></thead>
+          <tbody>
+            <tr><td>🍽️ Restaurants</td><td>381</td><td>12,650,000 RWF</td><td style="font-weight:600;color:var(--green)">1,897,500 RWF</td></tr>
+            <tr><td>💆 Beauty & Spa</td><td>178</td><td>5,920,000 RWF</td><td style="font-weight:600;color:var(--green)">888,000 RWF</td></tr>
+            <tr><td>🏨 Hotels</td><td>102</td><td>4,800,000 RWF</td><td style="font-weight:600;color:var(--green)">720,000 RWF</td></tr>
+            <tr><td>🏋️ Fitness</td><td>93</td><td>2,800,000 RWF</td><td style="font-weight:600;color:var(--green)">420,000 RWF</td></tr>
+            <tr><td>🛍️ Shopping</td><td>93</td><td>1,930,000 RWF</td><td style="font-weight:600;color:var(--green)">289,500 RWF</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PAYOUTS PAGE -->
+    <div id="page-payouts" style="display:none">
+      <div class="table-card">
+        <div class="table-header"><span class="table-title">Pending payouts — due Monday 25 March</span><button class="btn-sm btn-sm-green">Process All Payouts</button></div>
+        <table>
+          <thead><tr><th>Business</th><th>Vouchers redeemed</th><th>Gross sales</th><th>Commission (15%)</th><th>Net payout</th><th>MoMo number</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Heaven Restaurant</strong></td><td>28</td><td>420,000 RWF</td><td>63,000 RWF</td><td style="font-weight:700;color:var(--green)">357,000 RWF</td><td>0780 111 222</td><td><button class="btn-sm btn-sm-green">Pay via MoMo</button></td></tr>
+            <tr><td><strong>Zen Wellness Spa</strong></td><td>15</td><td>225,000 RWF</td><td>33,750 RWF</td><td style="font-weight:700;color:var(--green)">191,250 RWF</td><td>0785 333 444</td><td><button class="btn-sm btn-sm-green">Pay via MoMo</button></td></tr>
+            <tr><td><strong>FitLife Gym</strong></td><td>40</td><td>800,000 RWF</td><td>80,000 RWF</td><td style="font-weight:700;color:var(--green)">720,000 RWF</td><td>0780 555 666</td><td><button class="btn-sm btn-sm-green">Pay via MoMo</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Build bar chart
+const data = [42,55,38,71,62,88,104,76,59,82,91,68,55,74,88,96,112,88,74,92,108,128,0];
+const max = Math.max(...data);
+const colors = ['#1A6B3C','#2D9E5F','#1A6B3C','#2D9E5F','#1A6B3C','#2D9E5F','#1A6B3C','#2D9E5F','#1A6B3C','#2D9E5F','#1A6B3C','#2D9E5F','#1A6B3C','#2D9E5F','#1A6B3C','#2D9E5F','#1A6B3C','#2D9E5F','#1A6B3C','#2D9E5F','#1A6B3C','#F5C518'];
+const chart = document.getElementById('barChart');
+data.forEach((v,i) => {
+  const w = document.createElement('div');
+  w.className = 'bar-wrap';
+  const h = max > 0 ? Math.round((v/max)*140) : 4;
+  w.innerHTML = `<div class="bar-val" style="font-size:9px">${v>0?v+'K':''}</div><div class="bar" style="height:${h}px;background:${colors[i]}" title="${v}K RWF"></div><div class="bar-label">${i+1}</div>`;
+  chart.appendChild(w);
+});
+
+// Page switching
+const pages = ['dashboard','deals','businesses','users','revenue','payouts'];
+const pageTitles = {dashboard:'Dashboard Overview',deals:'Deal Management',businesses:'Business Partners',users:'User Management',revenue:'Revenue Analytics',payouts:'Payout Management'};
+
+function setPage(name, el) {
+  pages.forEach(p => {
+    const el2 = document.getElementById('page-'+p);
+    if(el2) el2.style.display = p===name ? 'block' : 'none';
+  });
+  document.querySelectorAll('.sb-item').forEach(s => s.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.getElementById('pageTitle').textContent = pageTitles[name] || name;
+  return false;
+}
+
+// Approve action
+function approveItem(btn) {
+  const card = btn.closest('.approval-card');
+  card.style.opacity = '.4';
+  card.style.pointerEvents = 'none';
+  btn.textContent = '✓ Approved';
+  btn.style.background = '#B4B2A9';
+}
+
+// Live activity ticker
+const events = [
+  '🎟️ New purchase: <strong>Coffee & Cake for 2</strong> at Question Coffee',
+  '👤 New user registered from <strong>Kimironko</strong>',
+  '🎟️ Voucher redeemed at <strong>Glam Studio</strong>',
+  '⭐ 5-star review for <strong>Heaven Restaurant</strong> deal',
+  '🏪 New business signup: <strong>Karibu Cafe</strong>',
+  '🎟️ New purchase: <strong>Pool Day Pass</strong> at Serena Hotel',
+];
+let ei = 0;
+setInterval(() => {
+  const feed = document.getElementById('activityFeed');
+  if(!feed) return;
+  const item = document.createElement('div');
+  item.className = 'activity-item';
+  const cls = ['act-green','act-yellow','act-orange'][ei%3];
+  item.innerHTML = `<div class="activity-icon ${cls}" style="font-size:14px">${events[ei%events.length].slice(0,2)}</div><div class="activity-text">${events[ei%events.length]}<div class="activity-time">Just now</div></div>`;
+  item.style.opacity='0'; item.style.transform='translateX(-10px)';
+  feed.insertBefore(item, feed.firstChild);
+  requestAnimationFrame(() => { item.style.transition='all .4s'; item.style.opacity='1'; item.style.transform='none'; });
+  if(feed.children.length > 6) feed.removeChild(feed.lastChild);
+  ei++;
+}, 5000);
+</script>
+</body>
+</html>

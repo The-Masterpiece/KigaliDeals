@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KigaliDeals — Go-Live Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--green:#1A6B3C;--green-light:#2D9E5F;--green-pale:#E8F5EE;--yellow:#F5C518;--orange:#E8541A;--cream:#FAF7F2;--ink:#1A1A1A;--ink-2:#3D3D3D;--muted:#888;--border:#E5E0D8;--white:#FFFFFF;--radius:14px;--red:#D63B3B}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6}
+
+.hero{background:var(--green);padding:56px 48px;position:relative;overflow:hidden}
+.hero-stripe{position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--yellow) 0,var(--yellow) 24px,var(--orange) 24px,var(--orange) 48px,#fff 48px,#fff 72px,var(--yellow) 72px)}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:-1px}
+.hero h1 em{font-style:normal;color:var(--yellow)}
+.hero p{font-size:17px;color:rgba(255,255,255,.7);max-width:540px}
+
+.wrap{max-width:900px;margin:0 auto;padding:48px 32px}
+
+.step-block{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);margin-bottom:28px;overflow:hidden}
+.step-header{display:flex;align-items:center;gap:16px;padding:22px 28px;border-bottom:1.5px solid var(--border);cursor:pointer;user-select:none}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--green);color:#fff;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-num.done{background:var(--green-pale);color:var(--green);font-size:20px}
+.step-title{font-size:18px;font-weight:700;flex:1}
+.step-subtitle{font-size:13px;color:var(--muted);margin-top:2px}
+.step-badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;white-space:nowrap}
+.badge-easy{background:#E8F5EE;color:var(--green)}
+.badge-medium{background:#FFF9E6;color:#8a6d00}
+.badge-key{background:#FFF0EA;color:var(--orange)}
+.step-arrow{font-size:18px;color:var(--muted);transition:transform .2s}
+.step-arrow.open{transform:rotate(180deg)}
+
+.step-body{padding:24px 28px;display:none}
+.step-body.open{display:block}
+
+.substep{display:flex;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.substep:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.substep-num{width:26px;height:26px;border-radius:50%;background:var(--green-pale);color:var(--green);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.substep-content{}
+.substep-title{font-size:15px;font-weight:600;margin-bottom:5px}
+.substep-body{font-size:14px;color:var(--ink-2);line-height:1.65}
+.substep-body a{color:var(--green);text-decoration:none;font-weight:500}
+.substep-body a:hover{text-decoration:underline}
+
+code{background:#F1EFE8;border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink)}
+pre{background:var(--ink);color:#e8e8e8;border-radius:10px;padding:18px 20px;font-family:'DM Mono',monospace;font-size:13px;line-height:1.7;overflow-x:auto;margin:10px 0}
+pre .comment{color:#666}
+pre .key{color:#9cdcfe}
+pre .val{color:#ce9178}
+pre .cmd{color:#4ec9b0}
+pre .flag{color:#dcdcaa}
+
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.checklist li{display:flex;align-items:flex-start;gap:10px;font-size:14px;padding:10px 14px;border-radius:8px;background:var(--cream);border:1px solid var(--border)}
+.checklist li.done-item{background:var(--green-pale);border-color:rgba(26,107,60,.2)}
+.check-box{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--border);flex-shrink:0;margin-top:1px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;font-size:11px}
+.check-box.checked{background:var(--green);border-color:var(--green);color:#fff}
+.check-label{flex:1;cursor:pointer}
+
+.info-box{background:var(--green-pale);border:1px solid rgba(26,107,60,.2);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--ink-2);margin:14px 0;line-height:1.6}
+.info-box strong{color:var(--green)}
+.warn-box{background:#FFF0EA;border:1px solid rgba(232,84,26,.2);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--ink-2);margin:14px 0;line-height:1.6}
+.warn-box strong{color:var(--orange)}
+
+.link-pill{display:inline-flex;align-items:center;gap:6px;background:var(--white);border:1.5px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px;font-weight:500;color:var(--ink-2);text-decoration:none;margin:4px;transition:all .15s}
+.link-pill:hover{border-color:var(--green);color:var(--green)}
+
+.progress-bar-wrap{background:var(--border);border-radius:10px;height:10px;overflow:hidden;margin-bottom:6px}
+.progress-bar-fill{height:100%;background:var(--green);border-radius:10px;transition:width .4s ease}
+.progress-label{font-size:13px;color:var(--muted);margin-bottom:16px}
+
+.timeline{display:flex;flex-direction:column;gap:0}
+.timeline-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+.timeline-item:last-child{border-bottom:none}
+.timeline-dot{width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px}
+.timeline-day{font-size:12px;font-weight:700;color:var(--green);min-width:60px}
+.timeline-text{font-size:14px;color:var(--ink-2)}
+
+footer{text-align:center;padding:32px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);background:var(--white)}
+footer strong{color:var(--green)}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-stripe"></div>
+  <h1>KigaliDeals — <em>Go Live Guide</em></h1>
+  <p>Your complete technical playbook to launch, accept payments, send WhatsApp alerts, and deploy to production. Follow the 4 steps in order.</p>
+</div>
+
+<div class="wrap">
+
+  <!-- PROGRESS -->
+  <div style="margin-bottom:32px">
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
+    <div class="progress-label" id="progressLabel">0 of 20 steps completed</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- STEP 1: SUPABASE BACKEND -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep('s1')">
+      <div class="step-num" id="dot-s1">1</div>
+      <div>
+        <div class="step-title">Set up Supabase — your backend database</div>
+        <div class="step-subtitle">PostgreSQL database, authentication, and real-time API in one</div>
+      </div>
+      <span class="step-badge badge-easy">Free tier available</span>
+      <span class="step-arrow" id="arrow-s1">▾</span>
+    </div>
+    <div class="step-body" id="body-s1">
+
+      <div class="substep">
+        <div class="substep-num">1</div>
+        <div class="substep-content">
+          <div class="substep-title">Create your Supabase project</div>
+          <div class="substep-body">
+            Go to <a href="https://supabase.com" target="_blank">supabase.com</a> → New Project → name it "kigalideals" → select region "Europe West" (closest to Rwanda) → choose a strong database password.
+            <br><br>
+            <a class="link-pill" href="https://supabase.com/dashboard/new" target="_blank">→ Create Project</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">2</div>
+        <div class="substep-content">
+          <div class="substep-title">Run the database schema</div>
+          <div class="substep-body">
+            In your Supabase dashboard → SQL Editor → New Query. Paste the entire contents of <code>schema.sql</code> and click Run. This creates all tables, security policies, and functions in one shot.
+            <div class="info-box"><strong>What gets created:</strong> profiles, businesses, deals, vouchers, payments, payouts, reviews tables — all with row-level security so users only see their own data.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">3</div>
+        <div class="substep-content">
+          <div class="substep-title">Copy your API keys</div>
+          <div class="substep-body">
+            Settings → API. Copy these into your <code>.env.local</code> file:
+            <pre><span class="key">NEXT_PUBLIC_SUPABASE_URL</span>=<span class="val">https://xxxx.supabase.co</span>
+<span class="key">NEXT_PUBLIC_SUPABASE_ANON_KEY</span>=<span class="val">eyJhbGciO...</span>
+<span class="key">SUPABASE_SERVICE_ROLE_KEY</span>=<span class="val">eyJhbGciO...</span> <span class="comment"># Keep secret!</span></pre>
+            <div class="warn-box"><strong>⚠️ Never expose SUPABASE_SERVICE_ROLE_KEY</strong> to the browser. Only use it in server-side API routes.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">4</div>
+        <div class="substep-content">
+          <div class="substep-title">Set up authentication</div>
+          <div class="substep-body">
+            Authentication → Providers → Email: enable. Under URL Configuration, set:
+            <br>• Site URL: <code>https://kigalideals.rw</code>
+            <br>• Redirect URLs: <code>https://kigalideals.rw/auth/callback</code>
+            <br><br>
+            Optionally enable Google OAuth for easier login — Auth → Providers → Google.
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">5</div>
+        <div class="substep-content">
+          <div class="substep-title">Enable Supabase Storage for images</div>
+          <div class="substep-body">
+            Storage → New bucket → name: <code>deal-images</code> → Public: ON.
+            Create a second bucket: <code>business-logos</code> → Public: ON.
+            <br><br>This is where business logos and deal photos will be stored.
+          </div>
+        </div>
+      </div>
+
+      <ul class="checklist" id="checklist-s1">
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Supabase project created</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">schema.sql executed successfully (no errors)</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">API keys copied to .env.local</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Auth redirect URLs configured</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Storage buckets created</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- STEP 2: MTN MOMO PAYMENTS -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep('s2')">
+      <div class="step-num" id="dot-s2">2</div>
+      <div>
+        <div class="step-title">Integrate MTN Mobile Money payments</div>
+        <div class="step-subtitle">Accept payments from every MTN and Airtel subscriber in Rwanda</div>
+      </div>
+      <span class="step-badge badge-key">Revenue critical</span>
+      <span class="step-arrow" id="arrow-s2">▾</span>
+    </div>
+    <div class="step-body" id="body-s2">
+
+      <div class="substep">
+        <div class="substep-num">1</div>
+        <div class="substep-content">
+          <div class="substep-title">Register at MTN MoMo Developer Portal</div>
+          <div class="substep-body">
+            Go to <a href="https://momodeveloper.mtn.com" target="_blank">momodeveloper.mtn.com</a> → Sign Up → Create an account.
+            <br>Subscribe to the <strong>Collection</strong> product (customer pays you) and the <strong>Disbursements</strong> product (you pay businesses).
+            <br><br>
+            <a class="link-pill" href="https://momodeveloper.mtn.com/signup" target="_blank">→ Developer Portal</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">2</div>
+        <div class="substep-content">
+          <div class="substep-title">Provision sandbox API credentials</div>
+          <div class="substep-body">
+            In the developer portal → My Apps → your app → Generate API User and API Key. These go in your <code>.env.local</code>:
+            <pre><span class="key">MOMO_SUBSCRIPTION_KEY</span>=<span class="val">abc123...</span>
+<span class="key">MOMO_API_USER</span>=<span class="val">uuid-from-portal</span>
+<span class="key">MOMO_API_KEY</span>=<span class="val">your-api-key</span>
+<span class="key">MOMO_ENVIRONMENT</span>=<span class="val">sandbox</span></pre>
+            <div class="info-box"><strong>Sandbox mode:</strong> You can test with any fake phone number. No real money moves. When ready for production, change MOMO_ENVIRONMENT to "production" and use real credentials.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">3</div>
+        <div class="substep-content">
+          <div class="substep-title">Create the API routes in Next.js</div>
+          <div class="substep-body">
+            Create these two files in your Next.js app:
+            <pre><span class="comment"># pages/api/payments/initiate.js</span>
+<span class="comment"># → Customer clicks "Pay" → this triggers MoMo prompt on their phone</span>
+
+<span class="comment"># pages/api/momo/callback.js</span>
+<span class="comment"># → MoMo calls this URL when payment succeeds/fails</span>
+<span class="comment"># → Creates the voucher and sends WhatsApp confirmation</span></pre>
+            The complete code for both is inside <code>lib/momo.js</code> — look for the comment blocks at the bottom.
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">4</div>
+        <div class="substep-content">
+          <div class="substep-title">Test a sandbox payment end-to-end</div>
+          <div class="substep-body">
+            <pre><span class="comment"># Install dependencies</span>
+<span class="cmd">npm install</span>
+
+<span class="comment"># Start dev server</span>
+<span class="cmd">npm run dev</span>
+
+<span class="comment"># Test payment initiation via curl</span>
+<span class="cmd">curl</span> <span class="flag">-X POST</span> http://localhost:3000/api/payments/initiate \
+  -H "Content-Type: application/json" \
+  -d '{"dealId":"...","quantity":1,"phoneNumber":"0780000000","totalAmount":15000}'</pre>
+            In sandbox, any 10-digit number works. Expected response: <code>{"success":true,"referenceId":"uuid"}</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">5</div>
+        <div class="substep-content">
+          <div class="substep-title">Apply for production access (takes ~2 weeks)</div>
+          <div class="substep-body">
+            MTN requires your business to be registered in Rwanda (RDB) before they grant production API access. Start this process early:
+            <br>• Submit your RDB certificate of incorporation
+            <br>• Your company bank account details
+            <br>• A demo of your platform working in sandbox
+            <br><br>Contact MTN Rwanda's fintech team: <strong>fintech@mtn.co.rw</strong>
+          </div>
+        </div>
+      </div>
+
+      <ul class="checklist" id="checklist-s2">
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Registered at momodeveloper.mtn.com</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Subscribed to Collection and Disbursements</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Sandbox API keys in .env.local</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Sandbox payment test successful</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Production application submitted to MTN</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- STEP 3: WHATSAPP BOT -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep('s3')">
+      <div class="step-num" id="dot-s3">3</div>
+      <div>
+        <div class="step-title">Launch your WhatsApp bot + daily deal alerts</div>
+        <div class="step-subtitle">Automated voucher delivery, daily blasts, and expiry reminders</div>
+      </div>
+      <span class="step-badge badge-medium">Growth engine</span>
+      <span class="step-arrow" id="arrow-s3">▾</span>
+    </div>
+    <div class="step-body" id="body-s3">
+
+      <div class="substep">
+        <div class="substep-num">1</div>
+        <div class="substep-content">
+          <div class="substep-title">Set up Twilio WhatsApp Sandbox (live in 5 minutes)</div>
+          <div class="substep-body">
+            <a href="https://twilio.com" target="_blank">twilio.com</a> → Sign Up (free) → Console → Messaging → Try it Out → WhatsApp.
+            <br>You'll get a sandbox number. To test, save <code>+1 415 523 8886</code> on your phone and send the join code they give you.
+            <pre><span class="key">TWILIO_ACCOUNT_SID</span>=<span class="val">ACxxxxxxxx</span>
+<span class="key">TWILIO_AUTH_TOKEN</span>=<span class="val">your_token</span>
+<span class="key">TWILIO_WHATSAPP_FROM</span>=<span class="val">whatsapp:+14155238886</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">2</div>
+        <div class="substep-content">
+          <div class="substep-title">Set up the inbound webhook</div>
+          <div class="substep-body">
+            In Twilio Console → WhatsApp Sandbox → Webhook URL, set:
+            <br><code>https://kigalideals.rw/api/whatsapp/webhook</code>
+            <br><br>Create <code>pages/api/whatsapp/webhook.js</code> and use the <code>handleInboundWhatsApp</code> function from <code>lib/whatsapp.js</code>.
+            <div class="info-box"><strong>What the bot handles:</strong> DEALS, FOOD, SPA, GYM, HOTEL commands + VOUCHER [code] lookup + STOP to unsubscribe. You can add more commands anytime.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">3</div>
+        <div class="substep-content">
+          <div class="substep-title">Set up the daily deals cron job</div>
+          <div class="substep-body">
+            On Vercel, use Vercel Cron (free on Pro plan) or use <a href="https://cron-job.org" target="_blank">cron-job.org</a> (free) to call your API every day at 8am Kigali time:
+            <pre><span class="comment"># vercel.json — add cron configuration</span>
+{
+  <span class="key">"crons"</span>: [
+    {
+      <span class="key">"path"</span>: <span class="val">"/api/cron/daily-deals"</span>,
+      <span class="key">"schedule"</span>: <span class="val">"0 6 * * *"</span>  <span class="comment">// 6am UTC = 8am Kigali</span>
+    },
+    {
+      <span class="key">"path"</span>: <span class="val">"/api/cron/expiry-reminders"</span>,
+      <span class="key">"schedule"</span>: <span class="val">"0 7 * * *"</span>
+    },
+    {
+      <span class="key">"path"</span>: <span class="val">"/api/cron/weekly-payouts"</span>,
+      <span class="key">"schedule"</span>: <span class="val">"0 6 * * 1"</span>  <span class="comment">// Every Monday</span>
+    }
+  ]
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">4</div>
+        <div class="substep-content">
+          <div class="substep-title">Apply for a real WhatsApp Business number</div>
+          <div class="substep-body">
+            For production (sending to any number, not just sandbox):
+            <br>• Apply via <a href="https://business.whatsapp.com" target="_blank">business.whatsapp.com</a>
+            <br>• Or apply through Twilio directly (faster, ~1-2 weeks)
+            <br>• You need a Meta Business account and a Facebook page
+            <br><br>Once approved, update <code>TWILIO_WHATSAPP_FROM</code> to your real number.
+          </div>
+        </div>
+      </div>
+
+      <ul class="checklist" id="checklist-s3">
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Twilio account created and sandbox working</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Webhook URL configured in Twilio</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Bot responds correctly to DEALS, FOOD, STOP commands</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Voucher confirmation sends after successful payment</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Daily cron job scheduled and tested</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- STEP 4: DEPLOY TO VERCEL -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep('s4')">
+      <div class="step-num" id="dot-s4">4</div>
+      <div>
+        <div class="step-title">Deploy to Vercel + connect kigalideals.rw</div>
+        <div class="step-subtitle">From your computer to live on the internet in under 10 minutes</div>
+      </div>
+      <span class="step-badge badge-easy">Free hosting</span>
+      <span class="step-arrow" id="arrow-s4">▾</span>
+    </div>
+    <div class="step-body" id="body-s4">
+
+      <div class="substep">
+        <div class="substep-num">1</div>
+        <div class="substep-content">
+          <div class="substep-title">Push your code to GitHub</div>
+          <div class="substep-body">
+            <pre><span class="comment"># One-time setup</span>
+<span class="cmd">git init</span>
+<span class="cmd">git add</span> .
+<span class="cmd">git commit</span> <span class="flag">-m</span> <span class="val">"Initial commit — KigaliDeals"</span>
+
+<span class="comment"># Create a new repo on github.com, then:</span>
+<span class="cmd">git remote add origin</span> https://github.com/yourname/kigalideals.git
+<span class="cmd">git push</span> <span class="flag">-u origin main</span></pre>
+            Make sure <code>.env.local</code> is in your <code>.gitignore</code> — never push secret keys!
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">2</div>
+        <div class="substep-content">
+          <div class="substep-title">Deploy to Vercel in one click</div>
+          <div class="substep-body">
+            <a href="https://vercel.com" target="_blank">vercel.com</a> → Sign up with GitHub → New Project → Import your kigalideals repo → Deploy.
+            <br><br>Vercel automatically detects Next.js and builds correctly. Your site will be live at <code>yourname.vercel.app</code> within 2 minutes.
+            <br><br>
+            <a class="link-pill" href="https://vercel.com/new" target="_blank">→ Deploy to Vercel</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">3</div>
+        <div class="substep-content">
+          <div class="substep-title">Add all environment variables to Vercel</div>
+          <div class="substep-body">
+            Vercel Dashboard → your project → Settings → Environment Variables. Add every variable from your <code>.env.example</code> file. Make sure to mark <code>SUPABASE_SERVICE_ROLE_KEY</code> and all secret keys as <strong>Production only</strong>.
+            <div class="warn-box"><strong>Critical:</strong> After adding env vars, you must redeploy. Click Deployments → Redeploy on your latest deployment.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">4</div>
+        <div class="substep-content">
+          <div class="substep-title">Connect your kigalideals.rw domain</div>
+          <div class="substep-body">
+            Buy domain at <a href="https://www.ricta.org.rw" target="_blank">RICTA (Rwanda)</a> or <a href="https://namecheap.com" target="_blank">Namecheap</a>.
+            <br><br>In Vercel → Settings → Domains → Add Domain → type <code>kigalideals.rw</code>.
+            <br>Vercel gives you two DNS records. Add them to your domain registrar:
+            <pre><span class="comment"># Add these DNS records at your registrar:</span>
+<span class="key">A Record</span>    @    <span class="val">76.76.19.19</span>
+<span class="key">CNAME</span>      www  <span class="val">cname.vercel-dns.com</span></pre>
+            DNS propagates in 5–60 minutes. SSL certificate is automatic (free).
+          </div>
+        </div>
+      </div>
+
+      <div class="substep">
+        <div class="substep-num">5</div>
+        <div class="substep-content">
+          <div class="substep-title">Final production checklist before launch</div>
+          <div class="substep-body">
+            Run through this before announcing to anyone:
+          </div>
+        </div>
+      </div>
+
+      <ul class="checklist" id="checklist-s4">
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Code pushed to GitHub (no secrets in repo)</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Deployed successfully on Vercel</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">All env vars added to Vercel and redeployed</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">kigalideals.rw domain connected with SSL</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Supabase auth redirect URL updated to production domain</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">MoMo callback URL updated to production domain</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">WhatsApp webhook URL updated to production domain</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">End-to-end test: register → browse → buy → receive WhatsApp</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">First 10 real deals listed from actual Kigali businesses</span></li>
+        <li><div class="check-box" onclick="tick(this)"></div><span class="check-label">Admin has been tested and can approve/reject deals</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- LAUNCH TIMELINE -->
+  <div class="step-block">
+    <div class="step-header" style="cursor:default">
+      <div class="step-num" style="background:var(--yellow);color:var(--ink)">🚀</div>
+      <div>
+        <div class="step-title">Realistic launch timeline</div>
+        <div class="step-subtitle">What to expect week by week</div>
+      </div>
+    </div>
+    <div style="padding:24px 28px">
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-day">Week 1</div><div class="timeline-text">Supabase setup + deploy to Vercel + get first 10 businesses signed up with deals</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-day">Week 2</div><div class="timeline-text">MoMo sandbox testing + WhatsApp bot live + start WhatsApp subscriber list</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-day">Week 3</div><div class="timeline-text">Soft launch — share with friends and family in Kigali, gather feedback, fix bugs</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-day">Week 4</div><div class="timeline-text">Submit MTN MoMo production application + apply for WhatsApp Business number</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-day">Week 6</div><div class="timeline-text">MoMo production approved → real money flows → public launch announcement</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-day">Month 3</div><div class="timeline-text">100+ businesses, 5,000+ subscribers, first significant revenue from commissions</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Built for <strong>KigaliDeals</strong> — Kigali's #1 deals platform.<br>
+  Questions? Ask Claude for help with any step.
+</footer>
+
+<script>
+let totalChecks = 0;
+let checkedCount = 0;
+
+function toggleStep(id) {
+  const body = document.getElementById('body-' + id);
+  const arrow = document.getElementById('arrow-' + id);
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+function tick(el) {
+  el.classList.toggle('checked');
+  el.textContent = el.classList.contains('checked') ? '✓' : '';
+  updateProgress();
+}
+
+function updateProgress() {
+  const all = document.querySelectorAll('.check-box');
+  const checked = document.querySelectorAll('.check-box.checked');
+  const pct = Math.round((checked.length / all.length) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent =
+    checked.length + ' of ' + all.length + ' steps completed' +
+    (pct === 100 ? ' — 🎉 Ready to launch!' : '');
+}
+
+// Open step 1 by default
+toggleStep('s1');
+
+// Count total checkboxes on load
+document.addEventListener('DOMContentLoaded', updateProgress);
+updateProgress();
+</script>
+</body>
+</html>

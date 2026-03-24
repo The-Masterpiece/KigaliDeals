@@ -1,0 +1,35 @@
+{
+  "name": "kigalideals",
+  "version": "1.0.0",
+  "description": "Kigali's #1 deals and discounts marketplace",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:reset": "node scripts/reset-db.js",
+    "db:seed": "node scripts/seed.js",
+    "cron:daily-deals": "node scripts/send-daily-deals.js",
+    "cron:expiry-reminders": "node scripts/send-expiry-reminders.js",
+    "cron:weekly-payouts": "node scripts/process-payouts.js"
+  },
+  "dependencies": {
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "@supabase/supabase-js": "^2.43.0",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "twilio": "^5.1.0",
+    "axios": "^1.7.0",
+    "uuid": "^10.0.0",
+    "node-cron": "^3.0.3",
+    "date-fns": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.0"
+  }
+}

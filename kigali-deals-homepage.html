@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kigali Deals – Best Discounts in Kigali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #1A6B3C;
+  --green-light: #2D9E5F;
+  --green-pale: #E8F5EE;
+  --yellow: #F5C518;
+  --yellow-deep: #D4A800;
+  --orange: #E8541A;
+  --cream: #FAF7F2;
+  --ink: #1A1A1A;
+  --ink-2: #3D3D3D;
+  --muted: #888;
+  --border: #E5E0D8;
+  --white: #FFFFFF;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 1.5px solid var(--border);
+  padding: 0 32px;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.logo-mark {
+  width: 36px; height: 36px;
+  background: var(--green);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 900;
+  color: var(--yellow);
+  letter-spacing: -1px;
+}
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+}
+.logo-text span { color: var(--green); }
+
+.nav-links {
+  display: flex; align-items: center; gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 14px; font-weight: 500;
+  color: var(--ink-2); text-decoration: none;
+  transition: color .15s;
+}
+.nav-links a:hover { color: var(--green); }
+
+.nav-right {
+  display: flex; align-items: center; gap: 10px;
+}
+.btn-outline {
+  padding: 8px 18px; border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: transparent; color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all .15s;
+}
+.btn-outline:hover { border-color: var(--green); color: var(--green); }
+
+.btn-solid {
+  padding: 8px 20px; border-radius: 8px;
+  background: var(--green); color: var(--white);
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all .15s;
+}
+.btn-solid:hover { background: var(--green-light); }
+
+/* ── HERO ─────────────────────────────────────── */
+.hero {
+  background: var(--green);
+  padding: 72px 32px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-pattern {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(245,197,24,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* Kente-inspired decorative strip */
+.hero-stripe {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--yellow) 0px, var(--yellow) 24px,
+    var(--orange) 24px, var(--orange) 48px,
+    var(--white) 48px, var(--white) 72px,
+    var(--yellow) 72px
+  );
+}
+
+.hero-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; align-items: flex-end;
+}
+
+.hero-text { padding-bottom: 56px; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(245,197,24,0.2);
+  border: 1px solid rgba(245,197,24,0.4);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px; font-weight: 600;
+  color: var(--yellow);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  background: var(--yellow);
+  border-radius: 50%;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.5;transform:scale(1.3)}
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  margin-bottom: 18px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--yellow);
+}
+
+.hero-sub {
+  font-size: 17px; font-weight: 400;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.6;
+  max-width: 440px;
+  margin-bottom: 32px;
+}
+
+.hero-search {
+  display: flex;
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  max-width: 480px;
+}
+.hero-search input {
+  flex: 1; border: none; outline: none;
+  padding: 15px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; color: var(--ink);
+  background: transparent;
+}
+.hero-search input::placeholder { color: var(--muted); }
+.hero-search button {
+  background: var(--yellow);
+  border: none; padding: 12px 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  margin: 5px; border-radius: 8px;
+  transition: background .15s;
+}
+.hero-search button:hover { background: var(--yellow-deep); color: var(--white); }
+
+.hero-stats {
+  display: flex; gap: 28px;
+  margin-top: 28px;
+}
+.hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--yellow);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 12px; color: rgba(255,255,255,0.6);
+  margin-top: 2px;
+}
+
+/* Hero visual cards */
+.hero-visual {
+  display: flex; flex-direction: column; gap: 12px;
+  padding-bottom: 32px;
+  animation: floatUp .8s ease both;
+}
+@keyframes floatUp {
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.deal-card-preview {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex; align-items: stretch;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  transition: transform .2s;
+  cursor: pointer;
+}
+.deal-card-preview:hover { transform: translateX(-4px); }
+
+.deal-img {
+  width: 80px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+}
+.deal-img.green-bg { background: var(--green-pale); }
+.deal-img.yellow-bg { background: #FFF9E6; }
+.deal-img.orange-bg { background: #FFF0EA; }
+
+.deal-info { padding: 14px 14px; flex: 1; }
+.deal-name {
+  font-size: 14px; font-weight: 600; color: var(--ink);
+  margin-bottom: 2px;
+}
+.deal-loc {
+  font-size: 12px; color: var(--muted);
+  margin-bottom: 6px;
+}
+.deal-discount-badge {
+  display: inline-block;
+  background: var(--green);
+  color: var(--white);
+  font-size: 11px; font-weight: 700;
+  padding: 3px 9px; border-radius: 20px;
+}
+.deal-price-col {
+  padding: 14px 16px;
+  display: flex; flex-direction: column;
+  align-items: flex-end; justify-content: center;
+  gap: 2px;
+}
+.deal-old-price {
+  font-size: 12px; color: var(--muted);
+  text-decoration: line-through;
+}
+.deal-new-price {
+  font-size: 18px; font-weight: 700;
+  color: var(--green);
+  font-family: 'Playfair Display', serif;
+}
+
+/* ── CATEGORIES ───────────────────────────────── */
+.section { padding: 64px 32px; max-width: 1100px; margin: 0 auto; }
+
+.section-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 28px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; font-weight: 700;
+  letter-spacing: -0.5px; color: var(--ink);
+}
+.section-title span { color: var(--green); }
+.see-all {
+  font-size: 14px; font-weight: 500; color: var(--green);
+  text-decoration: none; border-bottom: 1px solid var(--green);
+  padding-bottom: 1px;
+}
+
+.cats-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+}
+.cat-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  text-decoration: none;
+}
+.cat-card:hover {
+  border-color: var(--green);
+  background: var(--green-pale);
+  transform: translateY(-3px);
+}
+.cat-icon { font-size: 28px; margin-bottom: 8px; }
+.cat-name { font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.cat-count { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ── DEALS GRID ───────────────────────────────── */
+.deals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.deal-full-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+}
+.deal-full-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  border-color: var(--green);
+}
+
+.deal-full-card.featured {
+  border-color: var(--yellow);
+  border-width: 2px;
+}
+
+.featured-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  letter-spacing: .04em; text-transform: uppercase;
+  z-index: 2;
+}
+
+.deal-thumb {
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 64px;
+  position: relative;
+}
+.deal-thumb.t1 { background: linear-gradient(135deg,#E8F5EE,#C8EDD9); }
+.deal-thumb.t2 { background: linear-gradient(135deg,#FFF9E6,#FDEEBA); }
+.deal-thumb.t3 { background: linear-gradient(135deg,#FFF0EA,#FECFC0); }
+.deal-thumb.t4 { background: linear-gradient(135deg,#EEF2FF,#D5DEF7); }
+.deal-thumb.t5 { background: linear-gradient(135deg,#FDF0F9,#F8D5EE); }
+.deal-thumb.t6 { background: linear-gradient(135deg,#F0FDF4,#C6F6D5); }
+
+.discount-tag {
+  position: absolute; bottom: 12px; right: 12px;
+  background: var(--green);
+  color: var(--white);
+  font-size: 13px; font-weight: 700;
+  padding: 5px 12px; border-radius: 20px;
+}
+
+.deal-full-body { padding: 16px; }
+.deal-cat-tag {
+  font-size: 11px; font-weight: 600;
+  color: var(--green); text-transform: uppercase;
+  letter-spacing: .05em; margin-bottom: 5px;
+}
+.deal-full-name {
+  font-size: 16px; font-weight: 600;
+  color: var(--ink); margin-bottom: 4px;
+  line-height: 1.3;
+}
+.deal-full-biz {
+  font-size: 13px; color: var(--muted);
+  margin-bottom: 12px;
+}
+.deal-full-biz svg { vertical-align: middle; margin-right: 3px; }
+
+.deal-pricing {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 12px;
+}
+.price-new {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700; color: var(--green);
+}
+.price-old {
+  font-size: 14px; color: var(--muted);
+  text-decoration: line-through;
+}
+.price-save {
+  font-size: 12px; font-weight: 600;
+  color: var(--orange); background: #FFF0EA;
+  padding: 2px 8px; border-radius: 6px;
+}
+
+.deal-meta {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.deal-expiry {
+  font-size: 12px; color: var(--muted);
+  display: flex; align-items: center; gap: 4px;
+}
+.sold-bar-wrap { flex: 1; max-width: 120px; }
+.sold-label { font-size: 11px; color: var(--muted); margin-bottom: 3px; }
+.sold-bar {
+  height: 5px; background: var(--border);
+  border-radius: 3px; overflow: hidden;
+}
+.sold-fill {
+  height: 100%; background: var(--green);
+  border-radius: 3px; transition: width .6s ease;
+}
+
+.btn-deal {
+  display: block; width: 100%;
+  margin-top: 14px;
+  padding: 11px;
+  background: var(--green);
+  color: var(--white);
+  border: none; border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; text-align: center;
+  text-decoration: none;
+  transition: background .15s;
+}
+.btn-deal:hover { background: var(--green-light); }
+
+/* ── TODAY STRIP ──────────────────────────────── */
+.today-strip {
+  background: var(--ink);
+  padding: 48px 32px;
+  margin: 0;
+}
+.today-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+.today-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--yellow);
+  letter-spacing: .12em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.today-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 900;
+  color: var(--white); margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+.today-sub { color: rgba(255,255,255,0.55); font-size: 15px; margin-bottom: 28px; }
+
+.today-cards {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 14px;
+}
+.today-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.today-card:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--yellow);
+  transform: translateY(-2px);
+}
+.today-card-icon { font-size: 30px; margin-bottom: 10px; }
+.today-card-name {
+  font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 3px;
+}
+.today-card-biz { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+.today-card-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700; color: var(--yellow);
+}
+.today-card-old {
+  font-size: 12px; color: rgba(255,255,255,0.35);
+  text-decoration: line-through; margin-left: 6px;
+}
+.today-countdown {
+  display: flex; gap: 6px; margin-top: 10px;
+}
+.countdown-unit {
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px; padding: 4px 8px; text-align: center;
+  min-width: 38px;
+}
+.countdown-num {
+  font-size: 16px; font-weight: 700; color: var(--white);
+  font-family: 'Playfair Display', serif; line-height: 1;
+}
+.countdown-lbl { font-size: 9px; color: rgba(255,255,255,0.45); margin-top: 1px; }
+
+/* ── HOW IT WORKS ─────────────────────────────── */
+.how-section {
+  padding: 72px 32px;
+  background: var(--white);
+}
+.how-inner { max-width: 1100px; margin: 0 auto; }
+
+.how-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+  margin-top: 40px;
+}
+.how-steps { display: flex; flex-direction: column; gap: 28px; }
+.how-step {
+  display: flex; gap: 18px; align-items: flex-start;
+  padding: 20px; border-radius: var(--radius);
+  border: 1.5px solid transparent;
+  cursor: pointer; transition: all .2s;
+}
+.how-step:hover, .how-step.active {
+  border-color: var(--green);
+  background: var(--green-pale);
+}
+.how-step-num {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: var(--green);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700; color: var(--white);
+}
+.how-step-title {
+  font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 5px;
+}
+.how-step-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+.how-visual {
+  background: var(--cream);
+  border-radius: 24px;
+  padding: 32px;
+  border: 1.5px solid var(--border);
+  position: relative;
+}
+.how-phone-mockup {
+  background: var(--ink);
+  border-radius: 20px;
+  padding: 16px;
+  max-width: 280px; margin: 0 auto;
+}
+.phone-screen {
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.phone-top-bar {
+  background: var(--green);
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.phone-logo-sm {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px; font-weight: 700; color: var(--white);
+}
+.phone-search-bar {
+  margin: 10px;
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 11px; color: var(--muted);
+}
+.phone-deal-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px;
+  border-top: 1px solid var(--border);
+}
+.phone-deal-thumb {
+  width: 44px; height: 44px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.phone-deal-info { flex: 1; }
+.phone-deal-name { font-size: 11px; font-weight: 600; color: var(--ink); }
+.phone-deal-loc { font-size: 10px; color: var(--muted); }
+.phone-deal-price { font-size: 13px; font-weight: 700; color: var(--green); font-family: 'Playfair Display', serif; }
+
+/* ── NEWSLETTER / CTA ─────────────────────────── */
+.cta-section {
+  background: var(--green);
+  padding: 72px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 10% 50%, rgba(245,197,24,0.15) 0%, transparent 60%),
+    radial-gradient(circle at 90% 30%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.cta-stripe {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--yellow) 0px, var(--yellow) 24px,
+    var(--orange) 24px, var(--orange) 48px,
+    var(--white) 48px, var(--white) 72px,
+    var(--yellow) 72px
+  );
+}
+
+.cta-inner {
+  max-width: 620px; margin: 0 auto;
+  text-align: center; position: relative;
+}
+.cta-inner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 900;
+  color: var(--white); line-height: 1.1;
+  letter-spacing: -0.5px; margin-bottom: 14px;
+}
+.cta-inner h2 em { font-style: normal; color: var(--yellow); }
+.cta-sub {
+  font-size: 16px; color: rgba(255,255,255,0.7);
+  margin-bottom: 32px; line-height: 1.6;
+}
+.cta-form {
+  display: flex; gap: 10px;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.cta-form input {
+  flex: 1; border: none; outline: none;
+  padding: 12px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; color: var(--ink);
+  background: transparent;
+}
+.cta-form button {
+  background: var(--green);
+  color: var(--white);
+  border: none; border-radius: 8px;
+  padding: 12px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; white-space: nowrap;
+  transition: background .15s;
+}
+.cta-form button:hover { background: #0e4a27; }
+.cta-note { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 12px; }
+
+/* ── FOOTER ───────────────────────────────────── */
+footer {
+  background: var(--ink);
+  padding: 48px 32px 28px;
+  color: rgba(255,255,255,0.5);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px; margin-bottom: 40px;
+}
+.footer-brand .logo-text { color: var(--white); margin-bottom: 12px; display: block; }
+.footer-brand p { font-size: 14px; line-height: 1.6; max-width: 220px; }
+.footer-col-title {
+  font-size: 13px; font-weight: 600;
+  color: var(--white); margin-bottom: 14px;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.footer-links a {
+  font-size: 14px; color: rgba(255,255,255,0.5);
+  text-decoration: none; transition: color .15s;
+}
+.footer-links a:hover { color: var(--yellow); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px;
+}
+.footer-bottom a { color: var(--yellow); text-decoration: none; }
+
+/* ── ANIMATIONS ──────────────────────────────── */
+.fade-in {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .cats-grid { grid-template-columns: repeat(4, 1fr); }
+  .deals-grid { grid-template-columns: repeat(2, 1fr); }
+  .today-cards { grid-template-columns: repeat(2, 1fr); }
+  .how-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  nav { padding: 0 16px; }
+  .nav-links { display: none; }
+  .hero { padding: 48px 16px 0; }
+  .section { padding: 48px 16px; }
+  .deals-grid { grid-template-columns: 1fr; }
+  .cats-grid { grid-template-columns: repeat(3, 1fr); }
+  .today-cards { grid-template-columns: 1fr; }
+  .cta-form { flex-direction: column; }
+  .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="logo-mark">K</div>
+    <span class="logo-text">Kigali<span>Deals</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Restaurants</a></li>
+    <li><a href="#">Beauty & Spa</a></li>
+    <li><a href="#">Hotels</a></li>
+    <li><a href="#">Shopping</a></li>
+    <li><a href="#">Activities</a></li>
+    <li><a href="#">List a Deal</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-outline">Sign in</button>
+    <button class="btn-solid">Get Deals</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-stripe"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Live deals across Kigali
+      </div>
+      <h1>Save big on the <em>best of Kigali</em></h1>
+      <p class="hero-sub">Exclusive discounts at top restaurants, spas, hotels & shops across Kigali — updated daily.</p>
+      <div class="hero-search">
+        <input type="text" placeholder="Search restaurants, spas, hotels…">
+        <button>Search Deals</button>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">340+</div>
+          <div class="hero-stat-label">Active deals</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">120+</div>
+          <div class="hero-stat-label">Local businesses</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">Up to 70%</div>
+          <div class="hero-stat-label">Off regular price</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="deal-card-preview">
+        <div class="deal-img green-bg">🍽️</div>
+        <div class="deal-info">
+          <div class="deal-name">3-Course Dinner for 2</div>
+          <div class="deal-loc">📍 Nyamirambo · Heaven Restaurant</div>
+          <span class="deal-discount-badge">50% OFF</span>
+        </div>
+        <div class="deal-price-col">
+          <div class="deal-old-price">30,000 RWF</div>
+          <div class="deal-new-price">15K</div>
+        </div>
+      </div>
+      <div class="deal-card-preview">
+        <div class="deal-img yellow-bg">💆</div>
+        <div class="deal-info">
+          <div class="deal-name">90-min Luxury Massage</div>
+          <div class="deal-loc">📍 Kimironko · Zen Spa</div>
+          <span class="deal-discount-badge">40% OFF</span>
+        </div>
+        <div class="deal-price-col">
+          <div class="deal-old-price">25,000 RWF</div>
+          <div class="deal-new-price">15K</div>
+        </div>
+      </div>
+      <div class="deal-card-preview">
+        <div class="deal-img orange-bg">🏨</div>
+        <div class="deal-info">
+          <div class="deal-name">Weekend Stay + Breakfast</div>
+          <div class="deal-loc">📍 Kacyiru · The Retreat</div>
+          <span class="deal-discount-badge">35% OFF</span>
+        </div>
+        <div class="deal-price-col">
+          <div class="deal-old-price">80,000 RWF</div>
+          <div class="deal-new-price">52K</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<div style="background:var(--white); padding: 0 0 8px;">
+  <div class="section" style="padding-bottom: 32px;">
+    <div class="section-header">
+      <h2 class="section-title">Browse by <span>category</span></h2>
+      <a href="#" class="see-all">All categories →</a>
+    </div>
+    <div class="cats-grid">
+      <a href="#" class="cat-card">
+        <div class="cat-icon">🍽️</div>
+        <div class="cat-name">Restaurants</div>
+        <div class="cat-count">82 deals</div>
+      </a>
+      <a href="#" class="cat-card">
+        <div class="cat-icon">💆</div>
+        <div class="cat-name">Beauty & Spa</div>
+        <div class="cat-count">54 deals</div>
+      </a>
+      <a href="#" class="cat-card">
+        <div class="cat-icon">🏨</div>
+        <div class="cat-name">Hotels</div>
+        <div class="cat-count">31 deals</div>
+      </a>
+      <a href="#" class="cat-card">
+        <div class="cat-icon">🛍️</div>
+        <div class="cat-name">Shopping</div>
+        <div class="cat-count">67 deals</div>
+      </a>
+      <a href="#" class="cat-card">
+        <div class="cat-icon">🏋️</div>
+        <div class="cat-name">Fitness</div>
+        <div class="cat-count">28 deals</div>
+      </a>
+      <a href="#" class="cat-card">
+        <div class="cat-icon">🎭</div>
+        <div class="cat-name">Activities</div>
+        <div class="cat-count">40 deals</div>
+      </a>
+      <a href="#" class="cat-card">
+        <div class="cat-icon">🚗</div>
+        <div class="cat-name">Auto & Travel</div>
+        <div class="cat-count">22 deals</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED DEALS -->
+<div class="section fade-in">
+  <div class="section-header">
+    <h2 class="section-title">Featured <span>deals</span></h2>
+    <a href="#" class="see-all">View all deals →</a>
+  </div>
+  <div class="deals-grid">
+
+    <div class="deal-full-card featured">
+      <div class="featured-badge">⭐ Featured</div>
+      <div class="deal-thumb t1">🍽️
+        <span class="discount-tag">50% OFF</span>
+      </div>
+      <div class="deal-full-body">
+        <div class="deal-cat-tag">Restaurant</div>
+        <div class="deal-full-name">Romantic Dinner for Two with Wine</div>
+        <div class="deal-full-biz">📍 Heaven Restaurant · Nyamirambo</div>
+        <div class="deal-pricing">
+          <span class="price-new">15,000 RWF</span>
+          <span class="price-old">30,000 RWF</span>
+          <span class="price-save">Save 15K</span>
+        </div>
+        <div class="deal-meta">
+          <div class="deal-expiry">⏰ 3 days left</div>
+          <div class="sold-bar-wrap">
+            <div class="sold-label">72% sold</div>
+            <div class="sold-bar"><div class="sold-fill" style="width:72%"></div></div>
+          </div>
+        </div>
+        <a href="#" class="btn-deal">Get This Deal</a>
+      </div>
+    </div>
+
+    <div class="deal-full-card">
+      <div class="deal-thumb t2">💆
+        <span class="discount-tag">40% OFF</span>
+      </div>
+      <div class="deal-full-body">
+        <div class="deal-cat-tag">Beauty & Spa</div>
+        <div class="deal-full-name">90-min Full Body Massage + Facial</div>
+        <div class="deal-full-biz">📍 Zen Wellness Spa · Kimironko</div>
+        <div class="deal-pricing">
+          <span class="price-new">15,000 RWF</span>
+          <span class="price-old">25,000 RWF</span>
+          <span class="price-save">Save 10K</span>
+        </div>
+        <div class="deal-meta">
+          <div class="deal-expiry">⏰ 5 days left</div>
+          <div class="sold-bar-wrap">
+            <div class="sold-label">45% sold</div>
+            <div class="sold-bar"><div class="sold-fill" style="width:45%"></div></div>
+          </div>
+        </div>
+        <a href="#" class="btn-deal">Get This Deal</a>
+      </div>
+    </div>
+
+    <div class="deal-full-card">
+      <div class="deal-thumb t3">🏨
+        <span class="discount-tag">35% OFF</span>
+      </div>
+      <div class="deal-full-body">
+        <div class="deal-cat-tag">Hotel</div>
+        <div class="deal-full-name">Weekend Getaway Stay + Breakfast</div>
+        <div class="deal-full-biz">📍 The Retreat Kigali · Kacyiru</div>
+        <div class="deal-pricing">
+          <span class="price-new">52,000 RWF</span>
+          <span class="price-old">80,000 RWF</span>
+          <span class="price-save">Save 28K</span>
+        </div>
+        <div class="deal-meta">
+          <div class="deal-expiry">⏰ 7 days left</div>
+          <div class="sold-bar-wrap">
+            <div class="sold-label">30% sold</div>
+            <div class="sold-bar"><div class="sold-fill" style="width:30%"></div></div>
+          </div>
+        </div>
+        <a href="#" class="btn-deal">Get This Deal</a>
+      </div>
+    </div>
+
+    <div class="deal-full-card">
+      <div class="deal-thumb t4">🏋️
+        <span class="discount-tag">60% OFF</span>
+      </div>
+      <div class="deal-full-body">
+        <div class="deal-cat-tag">Fitness</div>
+        <div class="deal-full-name">1-Month Gym Membership + Personal Training</div>
+        <div class="deal-full-biz">📍 FitLife Gym · Remera</div>
+        <div class="deal-pricing">
+          <span class="price-new">20,000 RWF</span>
+          <span class="price-old">50,000 RWF</span>
+          <span class="price-save">Save 30K</span>
+        </div>
+        <div class="deal-meta">
+          <div class="deal-expiry">⏰ 2 days left</div>
+          <div class="sold-bar-wrap">
+            <div class="sold-label">88% sold</div>
+            <div class="sold-bar"><div class="sold-fill" style="width:88%"></div></div>
+          </div>
+        </div>
+        <a href="#" class="btn-deal">Get This Deal</a>
+      </div>
+    </div>
+
+    <div class="deal-full-card">
+      <div class="deal-thumb t5">🎭
+        <span class="discount-tag">30% OFF</span>
+      </div>
+      <div class="deal-full-body">
+        <div class="deal-cat-tag">Activities</div>
+        <div class="deal-full-name">Kigali City Tour + Genocide Memorial</div>
+        <div class="deal-full-biz">📍 Rwanda Tours · City Centre</div>
+        <div class="deal-pricing">
+          <span class="price-new">35,000 RWF</span>
+          <span class="price-old">50,000 RWF</span>
+          <span class="price-save">Save 15K</span>
+        </div>
+        <div class="deal-meta">
+          <div class="deal-expiry">⏰ 10 days left</div>
+          <div class="sold-bar-wrap">
+            <div class="sold-label">20% sold</div>
+            <div class="sold-bar"><div class="sold-fill" style="width:20%"></div></div>
+          </div>
+        </div>
+        <a href="#" class="btn-deal">Get This Deal</a>
+      </div>
+    </div>
+
+    <div class="deal-full-card">
+      <div class="deal-thumb t6">🛍️
+        <span class="discount-tag">45% OFF</span>
+      </div>
+      <div class="deal-full-body">
+        <div class="deal-cat-tag">Shopping</div>
+        <div class="deal-full-name">Kigali Fashion Voucher — Spend 50K Get 90K</div>
+        <div class="deal-full-biz">📍 Kigali Heights Mall · Kimihurura</div>
+        <div class="deal-pricing">
+          <span class="price-new">50,000 RWF</span>
+          <span class="price-old">90,000 RWF</span>
+          <span class="price-save">Save 40K</span>
+        </div>
+        <div class="deal-meta">
+          <div class="deal-expiry">⏰ 6 days left</div>
+          <div class="sold-bar-wrap">
+            <div class="sold-label">55% sold</div>
+            <div class="sold-bar"><div class="sold-fill" style="width:55%"></div></div>
+          </div>
+        </div>
+        <a href="#" class="btn-deal">Get This Deal</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TODAY'S DEALS countdown strip -->
+<div class="today-strip">
+  <div class="today-inner">
+    <div class="today-label">⚡ Flash deals</div>
+    <h2 class="today-title">Deals ending today</h2>
+    <p class="today-sub">Grab these before midnight — they won't be back.</p>
+    <div class="today-cards">
+      <div class="today-card">
+        <div class="today-card-icon">☕</div>
+        <div class="today-card-name">Coffee & Cake for 2</div>
+        <div class="today-card-biz">Question Coffee · Kiyovu</div>
+        <div>
+          <span class="today-card-price">3,500 RWF</span>
+          <span class="today-card-old">7,000 RWF</span>
+        </div>
+        <div class="today-countdown">
+          <div class="countdown-unit"><div class="countdown-num" id="h">08</div><div class="countdown-lbl">hrs</div></div>
+          <div class="countdown-unit"><div class="countdown-num" id="m">42</div><div class="countdown-lbl">min</div></div>
+          <div class="countdown-unit"><div class="countdown-num" id="s">17</div><div class="countdown-lbl">sec</div></div>
+        </div>
+      </div>
+      <div class="today-card">
+        <div class="today-card-icon">💇</div>
+        <div class="today-card-name">Haircut + Blowout</div>
+        <div class="today-card-biz">Glam Studio · Remera</div>
+        <div>
+          <span class="today-card-price">8,000 RWF</span>
+          <span class="today-card-old">15,000 RWF</span>
+        </div>
+        <div class="today-countdown">
+          <div class="countdown-unit"><div class="countdown-num">08</div><div class="countdown-lbl">hrs</div></div>
+          <div class="countdown-unit"><div class="countdown-num">42</div><div class="countdown-lbl">min</div></div>
+          <div class="countdown-unit"><div class="countdown-num">17</div><div class="countdown-lbl">sec</div></div>
+        </div>
+      </div>
+      <div class="today-card">
+        <div class="today-card-icon">🍕</div>
+        <div class="today-card-name">Pizza + Drinks for 4</div>
+        <div class="today-card-biz">La Bonne Adresse · Gisozi</div>
+        <div>
+          <span class="today-card-price">12,000 RWF</span>
+          <span class="today-card-old">22,000 RWF</span>
+        </div>
+        <div class="today-countdown">
+          <div class="countdown-unit"><div class="countdown-num">08</div><div class="countdown-lbl">hrs</div></div>
+          <div class="countdown-unit"><div class="countdown-num">42</div><div class="countdown-lbl">min</div></div>
+          <div class="countdown-unit"><div class="countdown-num">17</div><div class="countdown-lbl">sec</div></div>
+        </div>
+      </div>
+      <div class="today-card">
+        <div class="today-card-icon">🏊</div>
+        <div class="today-card-name">Pool Day Pass</div>
+        <div class="today-card-biz">Serena Hotel · City Centre</div>
+        <div>
+          <span class="today-card-price">10,000 RWF</span>
+          <span class="today-card-old">18,000 RWF</span>
+        </div>
+        <div class="today-countdown">
+          <div class="countdown-unit"><div class="countdown-num">08</div><div class="countdown-lbl">hrs</div></div>
+          <div class="countdown-unit"><div class="countdown-num">42</div><div class="countdown-lbl">min</div></div>
+          <div class="countdown-unit"><div class="countdown-num">17</div><div class="countdown-lbl">sec</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <div class="how-inner">
+    <div class="section-header" style="margin-bottom:0">
+      <h2 class="section-title">How it <span>works</span></h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-steps">
+        <div class="how-step active">
+          <div class="how-step-num">1</div>
+          <div>
+            <div class="how-step-title">Browse deals near you</div>
+            <div class="how-step-body">Search or browse hundreds of exclusive deals across Kigali's top restaurants, spas, hotels, gyms & shops — updated every day.</div>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">2</div>
+          <div>
+            <div class="how-step-title">Buy with MoMo or card</div>
+            <div class="how-step-body">Pay securely with MTN Mobile Money, Airtel Money, or your Visa card. Get your voucher instantly on your phone.</div>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">3</div>
+          <div>
+            <div class="how-step-title">Redeem and enjoy</div>
+            <div class="how-step-body">Show your digital voucher at the business. No printing needed — just your phone. Valid for the dates shown on your deal.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="how-visual">
+        <div class="how-phone-mockup">
+          <div class="phone-screen">
+            <div class="phone-top-bar">
+              <span class="phone-logo-sm">KigaliDeals</span>
+            </div>
+            <div class="phone-search-bar">🔍 Search deals in Kimironko…</div>
+            <div class="phone-deal-item">
+              <div class="phone-deal-thumb" style="background:#E8F5EE">🍽️</div>
+              <div class="phone-deal-info">
+                <div class="phone-deal-name">Dinner for 2</div>
+                <div class="phone-deal-loc">📍 Nyamirambo</div>
+              </div>
+              <div class="phone-deal-price">15K</div>
+            </div>
+            <div class="phone-deal-item">
+              <div class="phone-deal-thumb" style="background:#FFF9E6">💆</div>
+              <div class="phone-deal-info">
+                <div class="phone-deal-name">Full Massage</div>
+                <div class="phone-deal-loc">📍 Kimironko</div>
+              </div>
+              <div class="phone-deal-price">15K</div>
+            </div>
+            <div class="phone-deal-item">
+              <div class="phone-deal-thumb" style="background:#EEF2FF">🏋️</div>
+              <div class="phone-deal-info">
+                <div class="phone-deal-name">Gym Month Pass</div>
+                <div class="phone-deal-loc">📍 Remera</div>
+              </div>
+              <div class="phone-deal-price">20K</div>
+            </div>
+            <div style="padding:12px 10px">
+              <div style="background:var(--green);color:#fff;text-align:center;padding:10px;border-radius:8px;font-size:12px;font-weight:600">Buy with MoMo ✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA / NEWSLETTER -->
+<div class="cta-section">
+  <div class="cta-stripe"></div>
+  <div class="cta-inner">
+    <h2>Never miss a deal in <em>Kigali</em></h2>
+    <p class="cta-sub">Join 8,000+ Kigali residents getting daily deal alerts by WhatsApp and email. Cancel any time.</p>
+    <div class="cta-form">
+      <input type="email" placeholder="Enter your email or phone number">
+      <button>Get Daily Deals</button>
+    </div>
+    <p class="cta-note">🔒 We respect your privacy. No spam — just the best deals, daily.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-text">Kigali<span style="color:var(--yellow)">Deals</span></span>
+      <p>Kigali's #1 platform for exclusive discounts. Connecting locals with the best offers across the city.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Explore</div>
+      <ul class="footer-links">
+        <li><a href="#">Restaurants</a></li>
+        <li><a href="#">Beauty & Spa</a></li>
+        <li><a href="#">Hotels</a></li>
+        <li><a href="#">Fitness</a></li>
+        <li><a href="#">Shopping</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">List Your Business</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Support</div>
+      <ul class="footer-links">
+        <li><a href="#">Help Centre</a></li>
+        <li><a href="#">Redemption Guide</a></li>
+        <li><a href="#">Refund Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 KigaliDeals. Made with ❤️ in Kigali, Rwanda.</span>
+    <span>WhatsApp: <a href="#">+250 700 000 000</a> · <a href="#">info@kigalideals.rw</a></span>
+  </div>
+</footer>
+
+<script>
+// Scroll fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Live countdown timer
+function updateCountdown() {
+  const now = new Date();
+  const midnight = new Date();
+  midnight.setHours(23,59,59,0);
+  const diff = Math.max(0, midnight - now);
+  const h = String(Math.floor(diff/3600000)).padStart(2,'0');
+  const m = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  const s = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+  document.querySelectorAll('#h').forEach(el => el.textContent = h);
+  document.querySelectorAll('#m').forEach(el => el.textContent = m);
+  document.querySelectorAll('#s').forEach(el => el.textContent = s);
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// How it works step toggler
+document.querySelectorAll('.how-step').forEach((step, i) => {
+  step.addEventListener('click', () => {
+    document.querySelectorAll('.how-step').forEach(s => s.classList.remove('active'));
+    step.classList.add('active');
+  });
+});
+
+// Animate sold bars on scroll
+const soldObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.querySelectorAll('.sold-fill').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0';
+        setTimeout(() => { bar.style.width = w; }, 100);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.deals-grid').forEach(el => soldObserver.observe(el));
+</script>
+</body>
+</html>
